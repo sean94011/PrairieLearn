@@ -56,6 +56,7 @@ router.get('/', function(req, res, next) {
                 callback(null);
             });
         },
+
     ], (err) => {
         if (ERR(err, next)) return;
         res.render(__filename.replace(/\.js$/, '.ejs'), res.locals);
@@ -76,7 +77,7 @@ router.post('/', (req, res, next) => {
                     res.redirect(res.locals.urlPrefix + '/edit_error/' + job_sequence_id);
                 } else {
                     debug(`Get question_id from uuid=${editor.uuid} with course_id=${res.locals.course.id}`);
-                    sqldb.queryOneRow(sql.select_question_id_from_uuid, {uuid: editor.uuid, course_id: res.locals.course.id}, (err, result) => {
+                    sqldb.queryOneRow(sql.select_question_id_from_uuid, { uuid: editor.uuid, course_id: res.locals.course.id }, (err, result) => {
                         if (ERR(err, next)) return;
                         res.redirect(res.locals.urlPrefix + '/question/' + result.rows[0].question_id + '/settings');
                     });
